@@ -1,0 +1,90 @@
+# goto
+
+Change to a directory and list its content using an alias. Aliases are defined as environment variables, hence auto-completed by default.
+
+## Installation
+
+```
+# Clone the repository
+$ git clone https://github.com/antagon/goto
+
+# Copy the script in your home directory
+$ cp goto/goto.sh ~/.goto
+
+# Put bootstrap code in your .bashrc
+$ cat goto/setup.sh >> ~/.bashrc
+
+# Reload .bashrc
+$ source ~/.bashrc
+```
+
+## Usage
+
+### Add directory aliases
+
+```
+$ goto_edit
+git="~/git"
+git_goto="$git/antagon/goto"
+desktop="~/Desktop"
+downloads="~/Downloads"
+images="~/Images"
+```
+
+The command will open default EDITOR (as defined in environment variable
+`$EDITOR`) and reloads the file after it's closed. Aliases are defined as
+environment variables.
+
+### List existing aliases
+
+```
+$ goto_list
+$desktop         ~/Desktop
+$downloads       ~/Downloads
+$git             ~/git
+$git_goto        ~/git/antagon/goto
+$images          ~/Images
+```
+
+The command lists defined directory aliases.
+
+### Go to directory
+
+```
+$ goto $desktop
+total 0
+-rw-r--r-- 1 user user 0 Jun  6 13:59 readme.txt
+```
+
+The command will switch to `~/Desktop` directory and list its content.
+
+### Reload directory aliases
+
+```
+$ goto_reload
+```
+
+The command will reload alias file. This is useful when you have edited the file without use of `goto_edit`.
+
+### Shorthand commands
+
+In `setup.sh` there are default aliases for your shell that you may find useful when using goto. If you do not want to use them, either delete them from `setup.sh`, or your `~/.bashrc`.
+
+A shorthand for `goto`.
+
+```
+$ g $desktop
+total 0
+-rw-r--r-- 1 user user 0 Jun  6 13:59 readme.txt
+```
+
+A shorthand for `goto_list`.
+
+```
+$ gl
+$desktop         ~/Desktop
+$downloads       ~/Downloads
+$git             ~/git
+$git_goto        ~/git/antagon/goto
+$images          ~/Images
+```
