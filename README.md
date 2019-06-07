@@ -2,6 +2,10 @@
 
 Change to a directory and list its content using an alias. Aliases are defined as environment variables, hence auto-completed by default.
 
+*What's the point?* Sometimes projects with complex directory structure have key places from which you run build/tests/you name it. It's very convenient to be able to jump there from any point of the tree.
+
+*Why not `cd` instead?* You can always use `cd` over goto with defined aliases (remember it's only a variable). The goto's added value is its ability to manage the aliases. If you are like me, you tend to forget, a lot, so goto has a command that reminds you what aliases you already have.
+
 ## Installation
 
 ```
@@ -88,3 +92,18 @@ $git             ~/git
 $git_goto        ~/git/antagon/goto
 $images          ~/Images
 ```
+
+### $alias/path support
+
+Since variables ($alias) is expanded to its value, before being passed to goto, it's perfectly fine to use:
+
+```
+$ g /etc/ssh
+
+# Switch to home dir
+$ g ~
+
+# Combine $alias with arbitrary strings (switch to ~/git/dockerfiles)
+$ g $git/dockerfiles
+```
+
