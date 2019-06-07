@@ -1,6 +1,3 @@
-# File where to store directory aliases.
-GOTO_ALIAS="$HOME/.goto_alias"
-
 goto_reload() {
 	[ -f "$GOTO_ALIAS" ] && source "$GOTO_ALIAS"
 }
@@ -27,7 +24,7 @@ goto_list() {
 	fi
 	aliases=("$(grep "^[[:alnum:]_]*=\".*\"$" "$GOTO_ALIAS" | cut -d '=' -f 1 | sort -u)")
 	for alias in ${aliases[@]}; do
-		printf "$%-15s ${!alias}\n" $alias
+		printf "$%-20s ${!alias}\n" $alias
 	done
 }
 
@@ -36,6 +33,14 @@ goto_edit() {
 		echo "goto_edit: default editor not set"
 		return 1
 	fi
-	$EDITOR "$GOTO_ALIAS" && goto_reload
+	tmpfile="$(mktemp)"
+	if [ -f "$GOTO_ALIAS" ]; then
+		cat "$GOTO_ALIAS" > "$tmpfile"
+	fi
+	$EDITOR "$tmpfile" && mv "$tmpfile" "$GOTO_ALIAS" && goto_reload
 }
+
+##
+GOTO_ALIAS="$HOME/.goto_alias"
+goto_reload
 
